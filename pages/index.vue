@@ -21,7 +21,7 @@ const resumeGame = () => {
       <!-- Contenedor del título con abeja -->
       <div class="relative">
         <img
-          src="~/assets/images/bee.jpg"
+          src="~/assets/images/bee.png"
           alt="Bee"
           class="absolute -left-16 -top-10 w-24 h-24 md:w-36 md:h-36 md:-left-34 md:-top-25 z-10 transform -rotate-12 hover:animate-none"
           :class="{ 'animate-erratic-flight': true }"
