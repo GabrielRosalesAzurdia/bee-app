@@ -3,7 +3,6 @@ import { ref, onMounted } from "vue";
 import * as service from "~/services/BeeService";
 
 const hasSavedGame = ref(false);
-console.log(hasSavedGame.value);
 
 onMounted(() => {
   hasSavedGame.value = service.hasSavedGame();
@@ -22,7 +21,7 @@ const resumeGame = () => {
       <!-- Contenedor del título con abeja -->
       <div class="relative">
         <img
-          src="https://img.freepik.com/free-vector/cute-bee-insect-animal_24877-82142.jpg?semt=ais_hybrid&w=740"
+          src="~/assets/images/bee.jpg"
           alt="Bee"
           class="absolute -left-16 -top-10 w-24 h-24 md:w-36 md:h-36 md:-left-34 md:-top-25 z-10 transform -rotate-12 hover:animate-none"
           :class="{ 'animate-erratic-flight': true }"
