@@ -24,4 +24,15 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
+  nitro: {
+    preset: "node-server",
+  },
+  runtimeConfig: {
+    public: {
+      baseURL:
+        process.env.NODE_ENV === "production"
+          ? "https://bee-app.onrender.com"
+          : "http://localhost:3000",
+    },
+  },
 });
