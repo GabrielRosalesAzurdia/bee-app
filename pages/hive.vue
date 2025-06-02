@@ -48,15 +48,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="hive-container p-4">
-    <div
-      class="word-display text-5xl font-bold mb-8 min-h-[100px] flex items-center justify-center"
-    >
+  <div
+    class="bg-white w-screen h-screen flex flex-col justify-center items-center"
+  >
+    <div class="text-8xl font-bold mb-8 flex items-center justify-center">
       {{ currentWord }}
-    </div>
-
-    <div class="progress text-center mb-6">
-      Word {{ currentIndex + 1 }} of {{ words.length }}
     </div>
 
     <div class="navigation flex justify-center gap-4">
@@ -65,14 +61,14 @@ onMounted(() => {
         @click="goPrev"
         :disabled="currentIndex === 0"
       >
-        ← Previous
+        ←
       </button>
       <button
         class="btn btn-neutral w-32"
         @click="goNext"
         :disabled="currentIndex === words.length - 1"
       >
-        Next →
+        →
       </button>
     </div>
 
@@ -84,19 +80,8 @@ onMounted(() => {
           navigateTo('/');
         "
       >
-        End Game
+        X
       </button>
     </div>
   </div>
 </template>
-
-<style scoped>
-.word-display {
-  min-height: 120px;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-</style>
