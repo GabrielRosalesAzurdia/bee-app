@@ -27,12 +27,5 @@ export default defineNuxtConfig({
   nitro: {
     preset: "node-server",
   },
-  runtimeConfig: {
-    public: {
-      baseURL:
-        process.env.NODE_ENV === "production"
-          ? "https://bee-app.onrender.com"
-          : "http://localhost:3000",
-    },
-  },
+  ssr: true,
 });
