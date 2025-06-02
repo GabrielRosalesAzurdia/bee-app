@@ -7,7 +7,7 @@ import type { Bee } from "~/entities/bee";
 
 // Get the word list
 export const getBees = async () => {
-  return useFetch<Bee[]>(`/api/bees`);
+  return useFetch<Bee[]>(`/api/words`);
 };
 
 export const generateGame = (words: Bee[], from: number, to: number) => {
@@ -49,4 +49,12 @@ export const clearGameState = () => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("spelling-bee-game");
   }
+};
+
+// Check if a saved game exists
+export const hasSavedGame = (): boolean => {
+  return (
+    typeof window !== "undefined" &&
+    localStorage.getItem("spelling-bee-game") !== null
+  );
 };

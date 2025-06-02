@@ -1,17 +1,21 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import * as service from "~/services/BeeService";
+import { useRouter } from "vue-router";
 
 const toast = useToast();
+const router = useRouter();
+
 const { data: items } = await service.getBees();
-const beelist = items?.value;
+const beelist = items?.value || [];
 
 // Form state
 const fromValue = ref<number | null>(null);
 const toValue = ref<number | null>(null);
 
 const validateRange = () => {
-  document.querySelector(".total-display")!.textContent = "0";
+  const display = document.querySelector(".total-display");
+  if (display) display.textContent = "0";
 
   if (fromValue.value === null || toValue.value === null) {
     return;
@@ -25,17 +29,17 @@ const validateRange = () => {
     return;
   }
 
-  if (toValue.value > (beelist?.length || 0)) {
+  if (toValue.value > beelist.length) {
     return;
   }
 
   // Update total display
   const total = toValue.value - fromValue.value + 1;
-  document.querySelector(".total-display")!.textContent = total.toString();
+  if (display) display.textContent = total.toString();
 };
 
 // Handle form submission
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (fromValue.value === null || toValue.value === null) {
     toast.error({ title: "Please fill both fields" });
     return;
@@ -51,21 +55,13 @@ const handleSubmit = () => {
     return;
   }
 
-  if (fromValue.value == toValue.value) {
-    toast.error({ title: "Numbers can not be equal" });
+  if (fromValue.value === toValue.value) {
+    toast.error({ title: "Numbers cannot be equal" });
     return;
   }
 
-  if (toValue.value > (beelist?.length || 0)) {
-    toast.error({ title: `End number cannot exceed ${beelist?.length}` });
-    return;
-  }
-
-  const totalWords = beelist?.length || 0;
-  if (toValue.value > totalWords) {
-    toast.error({
-      title: `End number exceeds available words (max: ${totalWords})`,
-    });
+  if (toValue.value > beelist.length) {
+    toast.error({ title: `End number cannot exceed ${beelist.length}` });
     return;
   }
 
@@ -73,8 +69,18 @@ const handleSubmit = () => {
   const selectedCount = toValue.value - fromValue.value + 1;
   toast.success({ title: `Selected ${selectedCount} words!` });
 
-  // Proceed with your game logic here
-  console.log("Valid selection:", fromValue.value, "to", toValue.value);
+  // Generate randomized word list
+  const shuffledWords = await service.generateGame(
+    beelist,
+    fromValue.value,
+    toValue.value
+  );
+
+  // Save to localStorage
+  service.saveGameState(shuffledWords, 0);
+
+  // Navigate to hive page
+  router.push("/hive");
 };
 </script>
 

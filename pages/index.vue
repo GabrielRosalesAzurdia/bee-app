@@ -1,3 +1,19 @@
+<script lang="ts" setup>
+import { ref, onMounted } from "vue";
+import * as service from "~/services/BeeService";
+
+const hasSavedGame = ref(false);
+console.log(hasSavedGame.value);
+
+onMounted(() => {
+  hasSavedGame.value = service.hasSavedGame();
+});
+
+const resumeGame = () => {
+  navigateTo("/hive");
+};
+</script>
+
 <template>
   <div
     class="bg-white w-screen h-screen flex flex-col justify-center items-center"
@@ -19,6 +35,8 @@
         <buttonsStartButton></buttonsStartButton>
         <button
           class="btn btn-neutral btn-lg w-48 md:w-64 rounded-md text-lg md:text-xl"
+          @click="resumeGame"
+          :disabled="!hasSavedGame"
         >
           Resume
         </button>
