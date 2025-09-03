@@ -51,7 +51,9 @@ onMounted(() => {
   <div
     class="bg-white w-screen h-screen flex flex-col justify-center items-center"
   >
-    <div class="text-8xl font-bold mb-8 flex items-center justify-center">
+    <div
+      class="text-8xl font-bold mb-8 flex items-center justify-center dark:text-black"
+    >
       {{ currentWord }}
     </div>
 
