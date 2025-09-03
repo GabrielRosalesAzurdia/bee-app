@@ -103,7 +103,7 @@ const handleSubmit = async () => {
           <label class="label">From</label>
           <input
             type="number"
-            class="input"
+            class="input dark:text-white"
             placeholder="0"
             v-model.number="fromValue"
             @input="validateRange"
@@ -114,7 +114,7 @@ const handleSubmit = async () => {
           <label class="label">To</label>
           <input
             type="number"
-            class="input"
+            class="input dark:text-white"
             placeholder="0"
             v-model.number="toValue"
             @input="validateRange"
